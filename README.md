@@ -42,7 +42,7 @@ audio-tts-project/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/audio-tts-project.git
+   git clone https://github.com/Darkrider0007/audio-tts-project
    cd audio-tts-project
    ```
 
