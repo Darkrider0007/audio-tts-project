@@ -196,12 +196,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Librosa](https://librosa.org/) - Audio processing
 - All contributors and community members
 
-## 📞 Support & Issues
-
-- **Report Bugs**: [Open an Issue](https://github.com/yourusername/audio-tts-project/issues)
-- **Request Features**: [Feature Requests](https://github.com/yourusername/audio-tts-project/issues?q=label%3Aenhancement)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/audio-tts-project/discussions)
-
 ## 🤔 Troubleshooting
 
 ### Common Issues
@@ -221,27 +215,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Issue: Audio output files not created**
 - Solution: Ensure `audio/output/` directory exists and has write permissions
 - Check available disk space
-
-For more troubleshooting, see [GitHub Issues](https://github.com/yourusername/audio-tts-project/issues).
-
-## 📚 Additional Resources
-
-- [Setup Guide](docs/SETUP.md)
-- [API Documentation](docs/API.md)
-- [Examples & Tutorials](docs/EXAMPLES.md)
-- [Architecture](docs/ARCHITECTURE.md)
-
-## 🔄 Versioning
-
-This project uses [Semantic Versioning](https://semver.org/).
-See [Releases](https://github.com/yourusername/audio-tts-project/releases) for version history.
-
----
-
-**Last Updated**: December 2024
-**Python**: 3.8+
-**Status**: Active Development 🚀
-
-**Repository**: [github.com/yourusername/audio-tts-project](https://github.com/yourusername/audio-tts-project)
-
-> **Note**: Replace `yourusername` with your actual GitHub username before pushing to GitHub.
