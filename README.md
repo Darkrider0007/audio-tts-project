@@ -4,7 +4,7 @@ A comprehensive text-to-speech solution featuring Hindi TTS and voice cloning ca
 
 ## 📋 Project Structure
 
-```
+```file
 audio-tts-project/
 ├── hindi-tts/              # Hindi Text-to-Speech module
 │   ├── src/
@@ -32,42 +32,48 @@ audio-tts-project/
 ## 📦 Installation
 
 ### Prerequisites
-- Python 3.10 - 3.11 
+
+- Python 3.10 - 3.11
 - Git
 - Windows (for batch/PowerShell scripts) or Linux/Mac (use manual setup)
 
 ### Quick Setup (Windows)
 
-**Option 1: Automated Setup (Recommended)**
+#### Option 1: Automated Setup (Recommended)
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/Darkrider0007/audio-tts-project
    cd audio-tts-project
    ```
 
 2. **Run the setup script** (Choose one):
-   - **PowerShell** (Recommended):
+   - **PowerShell**:
+
      ```powershell
      .\setup.ps1
      ```
 
 The script will automatically:
+
 - Create a virtual environment
 - Activate the venv
 - Upgrade pip
 - Install all dependencies
 - Verify the installation
 
-**Option 2: Manual Setup**
+#### Option 2: Manual Setup
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/yourusername/audio-tts-project.git
    cd audio-tts-project
    ```
 
 2. **Create a virtual environment**
+
    ```bash
    python -m venv venv
    # Activate on Windows:
@@ -77,17 +83,20 @@ The script will automatically:
    ```
 
 3. **Upgrade pip**
+
    ```bash
    python -m pip install --upgrade pip
    ```
 
 4. **Install dependencies**
+
    ```bash
    cd hindi-tts
    pip install -r requirements.txt
    ```
 
 5. **Verify installation** (optional)
+
    ```bash
    python -c "import torch; import torchaudio; print('Setup successful!')"
    ```
@@ -95,11 +104,13 @@ The script will automatically:
 ## 🎯 Usage
 
 ### Quick Start
+
 Upload your audio file to the following directory:
 
-```
+```file
 hindi-tts/audio/input/
 ```
+
 Ensure your audio file is in `.wav` format, noise-free, and between 5–15 seconds long. Update the filename reference in `run_hindi.py` accordingly.
 
 ```bash
@@ -110,10 +121,9 @@ cd hindi-tts
 python run_hindi.py
 ```
 
-
 ### Directory Structure After Setup
 
-```
+```file
 audio-tts-project/
 ├── venv/                       # Virtual environment (created by setup)
 ├── hindi-tts/
@@ -168,18 +178,22 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Common Issues
 
-**Issue: "ModuleNotFoundError: No module named 'torch'"**
+#### Issue: "ModuleNotFoundError: No module named 'torch'"
+
 - Solution: Run `pip install -r hindi-tts/requirements.txt` again
 - Or use the automated setup script: `.\setup.ps1`
 
-**Issue: "Python is not recognized"**
+#### Issue: "Python is not recognized"
+
 - Solution: Add Python to your PATH or use full path to python.exe
 - Restart terminal after installing Python
 
-**Issue: Virtual environment won't activate**
+#### Issue: Virtual environment won't activate
+
 - Solution: Run PowerShell as Administrator
 - Or use: `venv\Scripts\Activate.ps1`
 
-**Issue: Audio output files not created**
+#### Issue: Audio output files not created
+
 - Solution: Ensure `audio/output/` directory exists and has write permissions
 - Check available disk space
