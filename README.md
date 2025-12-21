@@ -32,7 +32,7 @@ audio-tts-project/
 ## 📦 Installation
 
 ### Prerequisites
-- Python 3.10 - 3.11
+- Python 3.10 - 3.11 
 - Git
 - Windows (for batch/PowerShell scripts) or Linux/Mac (use manual setup)
 
@@ -50,10 +50,6 @@ audio-tts-project/
    - **PowerShell** (Recommended):
      ```powershell
      .\setup.ps1
-     ```
-   - **Batch** (Double-click):
-     ```
-     setup.bat
      ```
 
 The script will automatically:
@@ -99,6 +95,12 @@ The script will automatically:
 ## 🎯 Usage
 
 ### Quick Start
+Upload your audio file to the following directory:
+
+```
+hindi-tts/audio/input/
+```
+Ensure your audio file is in `.wav` format, noise-free, and between 5–15 seconds long. Update the filename reference in `run_hindi.py` accordingly.
 
 ```bash
 # Navigate to the hindi-tts directory
@@ -108,40 +110,6 @@ cd hindi-tts
 python run_hindi.py
 ```
 
-### Hindi TTS Example
-
-```python
-from src.hindi_tts import HindiTTS
-
-# Initialize TTS
-tts = HindiTTS()
-
-# Generate speech from Hindi text
-tts.synthesize(
-    text="नमस्ते, यह एक परीक्षण है",
-    output_file="audio/output/sample.wav"
-)
-
-print("Audio saved to audio/output/sample.wav")
-```
-
-### Voice Cloning Example
-
-```python
-from src.hindi_voice_clone import VoiceCloner
-
-# Initialize voice cloner
-cloner = VoiceCloner()
-
-# Clone a voice from reference audio
-output = cloner.clone_voice(
-    reference_audio="path/to/reference.wav",
-    text="आपकी पाठ यहाँ",
-    output_file="audio/output/cloned_voice.wav"
-)
-
-print(f"Cloned voice saved to {output}")
-```
 
 ### Directory Structure After Setup
 
