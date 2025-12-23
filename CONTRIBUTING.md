@@ -31,24 +31,28 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 
 1. **Fork the repository** and create your branch from `main`
 2. **Create a feature branch** for your changes:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
+
 3. **Make your changes** and ensure code quality:
    - Write clear, commented code
    - Follow PEP 8 style guidelines
    - Add docstrings to functions and classes
 4. **Test your changes thoroughly**
 5. **Commit with clear messages**:
+
    ```bash
    git commit -m "Add feature: description of changes"
    ```
+
 6. **Push to your fork**:
 
    ```bash
    git push origin feature/your-feature-name
    ```
-   
+
 7. **Open a Pull Request** with a clear description:
    - Reference any related issues (#issue-number)
    - Describe what changes were made and why
@@ -63,7 +67,7 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 - Use meaningful variable and function names
 - Add docstrings to all functions and classes
 
-### Example:
+### Example
 
 ```python
 def process_audio(audio_file: str, output_format: str = "wav") -> str:
