@@ -31,22 +31,28 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 
 1. **Fork the repository** and create your branch from `main`
 2. **Create a feature branch** for your changes:
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
+
 3. **Make your changes** and ensure code quality:
    - Write clear, commented code
    - Follow PEP 8 style guidelines
    - Add docstrings to functions and classes
 4. **Test your changes thoroughly**
 5. **Commit with clear messages**:
+
    ```bash
    git commit -m "Add feature: description of changes"
    ```
+
 6. **Push to your fork**:
+
    ```bash
    git push origin feature/your-feature-name
    ```
+
 7. **Open a Pull Request** with a clear description:
    - Reference any related issues (#issue-number)
    - Describe what changes were made and why
@@ -55,12 +61,14 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 ## 📐 Code Style
 
 ### Python Style Guide
+
 - Follow [PEP 8](https://www.python.org/dev/peps/pep-0008/)
 - Use 4 spaces for indentation
 - Use meaningful variable and function names
 - Add docstrings to all functions and classes
 
-### Example:
+### Example
+
 ```python
 def process_audio(audio_file: str, output_format: str = "wav") -> str:
     """
@@ -82,6 +90,7 @@ def process_audio(audio_file: str, output_format: str = "wav") -> str:
 - Write tests for new features
 - Ensure all tests pass before submitting PR
 - Run tests locally:
+
   ```bash
   pytest tests/
   ```
@@ -101,7 +110,8 @@ def process_audio(audio_file: str, output_format: str = "wav") -> str:
 - Add a blank line and more detailed explanation if needed
 
 Example:
-```
+
+```text
 Add Hindi language support for voice cloning
 
 - Implement Hindi phoneme mapping
@@ -141,6 +151,7 @@ pytest
 ## 🎯 What to Work On
 
 Check the [Issues](https://github.com/yourusername/audio-tts-project/issues) page for:
+
 - Bugs to fix
 - Features to implement
 - Documentation improvements
@@ -149,6 +160,7 @@ Check the [Issues](https://github.com/yourusername/audio-tts-project/issues) pag
 ## ❓ Questions?
 
 Feel free to:
+
 - Open an issue with your question
 - Discuss in pull request comments
 - Join our community discussions
@@ -165,4 +177,4 @@ Feel free to:
 
 ---
 
-**Thank you for contributing! 🎉**
+## Thank you for contributing! 🎉
