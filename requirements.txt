@@ -1,22 +1,28 @@
-# Core Dependencies
+# FastAPI core
+fastapi>=0.100
+uvicorn>=0.20
+python-multipart>=0.0.5
+
+# Audio processing
 torch>=2.0.0
 torchaudio>=2.0.0
-chatterbox-tts>=0.1.6
-
-# Audio Processing
-librosa>=0.10.0
 soundfile>=0.12.0
-scipy>=1.10.0
 numpy>=1.24.0
+scipy>=1.10.0
+librosa>=0.10.0
 audioread>=3.1.0
 
-# ML/DL Frameworks
-diffusers>=0.29.0
+# ML / TTS related
 transformers>=4.30.0
-huggingface-hub>=0.36.0
 accelerate>=0.20.0
+sentencepiece>=0.1
+diffusers>=0.29.0
+chatterbox-tts>=0.1.6
+huggingface-hub>=0.36.0
 
 # Utilities
+pydantic>=2.0
+tqdm>=4.60
 click>=8.3.0
 colorama>=0.4.6
 joblib>=1.3.0

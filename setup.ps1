@@ -128,39 +128,57 @@ python -m pip install --upgrade pip
 Write-Success "pip upgraded"
 
 # -------------------------------
-# Install Hindi-TTS Requirements
+# Install Project Requirements
 # -------------------------------
 Print-Separator
-Write-Host "Installing Hindi-TTS Dependencies"
+Write-Host "Installing Project Dependencies"
 Print-Separator
 
-$hindiTtsDir = Join-Path $scriptDir "hindi-tts"
-$hindiReqFile = Join-Path $hindiTtsDir "requirements.txt"
+$reqFile = Join-Path $scriptDir "requirements.txt"
 
-if (-not (Test-Path $hindiTtsDir)) {
-    Write-Error-Message "hindi-tts directory not found"
+if (-not (Test-Path $reqFile)) {
+    Write-Error-Message "requirements.txt not found in project root"
     exit 1
 }
 
-Push-Location $hindiTtsDir
-Write-Info "Entered hindi-tts directory"
-
-if (Test-Path $hindiReqFile) {
-    Write-Info "Installing dependencies from requirements.txt..."
-    pip install -r requirements.txt
-    Write-Success "Hindi-TTS dependencies installed"
+Write-Info "Installing dependencies from requirements.txt..."
+try {
+    pip install -r $reqFile
+    Write-Success "Project dependencies installed"
 }
-else {
-    Write-Error-Message "requirements.txt not found inside hindi-tts"
-    Pop-Location
+catch {
+    Write-Error-Message "Failed to install dependencies"
     exit 1
 }
 
-Pop-Location
+# -------------------------------
+# Create Project Directories
+# -------------------------------
+Print-Separator
+Write-Host "Setting Up Project Directories"
+Print-Separator
+
+$directories = @(
+    (Join-Path $scriptDir "inputs"),
+    (Join-Path $scriptDir "outputs")
+)
+
+foreach ($dir in $directories) {
+    if (-not (Test-Path $dir)) {
+        Write-Info "Creating directory: $dir"
+        New-Item -ItemType Directory -Path $dir -Force | Out-Null
+        Write-Success "Directory created: $dir"
+    }
+    else {
+        Write-Info "Directory already exists: $dir"
+    }
+}
 
 # -------------------------------
 # Done
 # -------------------------------
 Print-Separator
 Write-Success "Setup completed successfully"
+Write-Host "To start the project, run:" -ForegroundColor Yellow
+Write-Host "uvicorn app.main:app --reload" -ForegroundColor Cyan
 Print-Separator

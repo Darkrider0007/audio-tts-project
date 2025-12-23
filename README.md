@@ -1,199 +1,123 @@
-# Audio TTS Project
+# Audio TTS API (Hindi TTS & Voice Cloning)
 
-A comprehensive text-to-speech solution featuring Hindi TTS and voice cloning capabilities using Chatterbox.
+FastAPI service that provides Hindi Text-to-Speech and simple voice cloning. CPU-only by design — all PyTorch model loads are forced to CPU in [app/main.py](app/main.py).
 
-## 📋 Project Structure
+## Project Structure
 
-```file
+```text
 audio-tts-project/
-├── hindi-tts/              # Hindi Text-to-Speech module
-│   ├── src/
-│   │   ├── config.py
-│   │   ├── hindi_tts.py
-│   │   └── hindi_voice_clone.py
-│   ├── audio/
-│   │   ├── input/
-│   │   └── output/
-│   ├── run_hindi.py
-│   └── requirements.txt
-├── chatterbox-cpu/         # Virtual environment with dependencies
-├── README.md
-├── .gitignore
-└── CONTRIBUTING.md
+├─ app/
+│  ├─ main.py                 # FastAPI app factory and CPU safety for torch
+│  ├─ api/routes.py           # HTTP endpoints (/tts, /voice-clone)
+│  ├─ core/config.py          # Paths and simple config
+│  └─ ...
+├─ inputs/                    # Temp storage for uploaded source audio
+├─ outputs/                   # Generated WAV files
+├─ requirements.txt           # Python dependencies
+├─ setup.ps1                  # Windows one-step setup
+└─ README.md
 ```
 
-## 🚀 Features
+## Requirements
 
-- **Hindi Text-to-Speech**: Convert Hindi text to speech
-- **Voice Cloning**: Clone voices using advanced ML models
-- **CPU-Optimized**: Works efficiently on CPU-based systems
-- **Modular Architecture**: Easy to extend and customize
+- Python 3.10 or 3.11
+- Windows PowerShell (for setup.ps1) or any shell for manual setup
 
-## 📦 Installation
+## Setup
 
-### Prerequisites
+### Option A — One-step (Windows)
 
-- Python 3.10 - 3.11
-- Git
-- Windows (for batch/PowerShell scripts) or Linux/Mac (use manual setup)
-
-### Quick Setup (Windows)
-
-#### Option 1: Automated Setup (Recommended)
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/Darkrider0007/audio-tts-project
-   cd audio-tts-project
-   ```
-
-2. **Run the setup script** (Choose one):
-   - **PowerShell**:
-
-     ```powershell
-     .\setup.ps1
-     ```
-
-The script will automatically:
-
-- Create a virtual environment
-- Activate the venv
-- Upgrade pip
-- Install all dependencies
-- Verify the installation
-
-#### Option 2: Manual Setup
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/yourusername/audio-tts-project.git
-   cd audio-tts-project
-   ```
-
-2. **Create a virtual environment**
-
-   ```bash
-   python -m venv venv
-   # Activate on Windows:
-   venv\Scripts\activate
-   # Activate on Linux/Mac:
-   source venv/bin/activate
-   ```
-
-3. **Upgrade pip**
-
-   ```bash
-   python -m pip install --upgrade pip
-   ```
-
-4. **Install dependencies**
-
-   ```bash
-   cd hindi-tts
-   pip install -r requirements.txt
-   ```
-
-5. **Verify installation** (optional)
-
-   ```bash
-   python -c "import torch; import torchaudio; print('Setup successful!')"
-   ```
-
-## 🎯 Usage
-
-### Quick Start
-
-Upload your audio file to the following directory:
-
-```file
-hindi-tts/audio/input/
+```powershell
+git clone https://github.com/Darkrider0007/audio-tts-project
+cd audio-tts-project
+./setup.ps1
 ```
 
-Ensure your audio file is in `.wav` format, noise-free, and between 5–15 seconds long. Update the filename reference in `run_hindi.py` accordingly.
+What it does:
+
+- Creates and activates a virtual environment
+- Upgrades pip and installs from requirements.txt
+- Ensures `inputs/` and `outputs/` exist
+
+### Option B — Manual (any OS)
 
 ```bash
-# Navigate to the hindi-tts directory
-cd hindi-tts
-
-# Run the example script
-python run_hindi.py
+git clone https://github.com/Darkrider0007/audio-tts-project
+cd audio-tts-project
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-### Directory Structure After Setup
+## Run The API
 
-```file
-audio-tts-project/
-├── venv/                       # Virtual environment (created by setup)
-├── hindi-tts/
-│   ├── src/
-│   │   ├── config.py          # Configuration settings
-│   │   ├── hindi_tts.py       # Main TTS engine
-│   │   ├── hindi_voice_clone.py # Voice cloning module
-│   │   └── __init__.py
-│   ├── audio/
-│   │   ├── input/             # Input audio files
-│   │   └── output/            # Generated audio files
-│   ├── run_hindi.py           # Example script
-│   └── requirements.txt        # Python dependencies
-├── setup.ps1                  # PowerShell setup script
-├── setup.bat                  # Batch setup script
-├── README.md                  # This file
-├── CONTRIBUTING.md            # Contribution guidelines
-├── .gitignore                 # Git ignore rules
-└── LICENSE                    # License file
+```bash
+uvicorn app.main:app --reload
 ```
 
-## 🤝 Contributing
+- Local server: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+- Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- ReDoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+The API object is defined in [app/main.py](app/main.py) and routes are in [app/api/routes.py](app/api/routes.py).
 
-### Quick Start for Contributors
+## API Overview
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Notes (enforced by [app/core/config.py](app/core/config.py) and validators):
 
-## 📝 License
+- Input audio must be WAV (`.wav`).
+- Max 50 Hindi words per request.
+- `outputs/` is cleared before each generation; only the latest file remains.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### POST /tts
 
-## 👥 Authors
+Generate TTS from Hindi text.
 
-- **Your Name** - *Initial work*
-- [Contributors](https://github.com/yourusername/audio-tts-project/graphs/contributors)
+Form fields:
 
-## 🙏 Acknowledgments
+- `text` (required): Hindi text
+- `outputName` (optional): filename to save, default `tts_output.wav`
 
-- [Chatterbox TTS](https://github.com/pndurette/chatterbox) - TTS library
-- [Diffusers](https://github.com/huggingface/diffusers) - For voice cloning
-- [PyTorch](https://pytorch.org/) - Deep learning framework
-- [Librosa](https://librosa.org/) - Audio processing
-- All contributors and community members
+Returns: `audio/wav` file and writes it to `outputs/`.
 
-## 🤔 Troubleshooting
+Curl example:
 
-### Common Issues
+```bash
+curl -X POST http://127.0.0.1:8000/tts \
+  -F "text=नमस्ते, आप कैसे हैं?" \
+  -F "outputName=tts_output.wav" \
+  -o tts_output.wav
+```
 
-#### Issue: "ModuleNotFoundError: No module named 'torch'"
+### POST /voice-clone
 
-- Solution: Run `pip install -r hindi-tts/requirements.txt` again
-- Or use the automated setup script: `.\setup.ps1`
+Clone voice from a source WAV and synthesize the provided text.
 
-#### Issue: "Python is not recognized"
+Form fields:
 
-- Solution: Add Python to your PATH or use full path to python.exe
-- Restart terminal after installing Python
+- `text` (required): Hindi text
+- `audio` (required): WAV file upload
+- `outputName` (optional): filename to save, default `voice_clone_output.wav`
 
-#### Issue: Virtual environment won't activate
+Returns: `audio/wav` file and writes it to `outputs/`.
 
-- Solution: Run PowerShell as Administrator
-- Or use: `venv\Scripts\Activate.ps1`
+Curl example (assumes `inputs/sample.wav` exists):
 
-#### Issue: Audio output files not created
+```bash
+curl -X POST http://127.0.0.1:8000/voice-clone \
+  -F "text=यह एक परीक्षण है" \
+  -F "audio=@inputs/sample.wav;type=audio/wav" \
+  -F "outputName=voice_clone_output.wav" \
+  -o voice_clone_output.wav
+```
 
-- Solution: Ensure `audio/output/` directory exists and has write permissions
-- Check available disk space
+## Tips & Troubleshooting
+
+- CPU only: torch loads are mapped to CPU in [app/main.py](app/main.py).
+- If `uvicorn` is not found, ensure your venv is active before running.
+- A request clears `outputs/` first; copy files out if you need to keep history.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). PRs and issues welcome!
