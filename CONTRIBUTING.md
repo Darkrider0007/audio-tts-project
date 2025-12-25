@@ -87,13 +87,99 @@ def process_audio(audio_file: str, output_format: str = "wav") -> str:
 
 ## 🧪 Testing
 
-- Write tests for new features
-- Ensure all tests pass before submitting PR
-- Run tests locally:
+All code contributions must include appropriate unit tests. Tests are critical to maintaining code quality and preventing regressions.
 
-  ```bash
-  pytest tests/
-  ```
+### Running Tests
+
+Run the test suite locally before submitting a PR:
+
+```bash
+python -m pytest tests/ -v
+```
+
+For coverage report:
+
+```bash
+python -m pytest tests/ -v --cov=app
+```
+
+### Writing Unit Tests
+
+#### Test File Organization
+
+- Place tests in the `tests/` directory
+- Name test files following the pattern: `test_<module_name>.py`
+- Current test structure:
+  - `test_health.py` - Health check endpoint tests
+  - `test_tts_api.py` - Text-to-Speech API tests
+  - `test_voice_clone_api.py` - Voice cloning API tests
+
+#### New Feature Tests
+
+When adding a new feature, you must include:
+
+1. **Unit tests** for new functions/methods
+2. **Integration tests** for API endpoints
+3. **Edge case tests** for boundary conditions
+4. **Error handling tests** for exception scenarios
+
+#### Test Example
+
+```python
+import pytest
+from app.services.tts_service import TTSService
+
+class TestTTSService:
+    """Test suite for TTS Service"""
+    
+    def test_tts_with_valid_hindi_text(self):
+        """Test TTS generation with valid Hindi text"""
+        service = TTSService()
+        text = "नमस्ते"
+        result = service.synthesize(text)
+        assert result is not None
+        assert isinstance(result, str)
+    
+    def test_tts_with_empty_text(self):
+        """Test TTS rejects empty text"""
+        service = TTSService()
+        with pytest.raises(ValueError):
+            service.synthesize("")
+    
+    def test_tts_respects_word_limit(self):
+        """Test TTS respects max 50 word limit"""
+        service = TTSService()
+        # 51 words - should raise error
+        long_text = " ".join(["नमस्ते"] * 51)
+        with pytest.raises(ValueError):
+            service.synthesize(long_text)
+```
+
+#### Test Coverage Requirements
+
+- Aim for **minimum 80% code coverage** for new code
+- Cover both success and failure paths
+- Test with various input types and edge cases
+- Test error handling and validation
+
+#### Existing Tests
+
+Before modifying existing tests:
+
+1. Understand why the test exists
+2. Ensure modifications don't reduce coverage
+3. Add new tests if adding new behavior
+4. Update test docstrings if test purpose changes
+
+#### Test Guidelines
+
+- Use descriptive test names that explain what is being tested
+- Add docstrings explaining the test purpose
+- Use pytest fixtures for setup/teardown
+- Group related tests in classes
+- Test one thing per test (single responsibility)
+- Use assertions to verify expected behavior
+- Mock external dependencies when appropriate
 
 ## 📦 Dependencies
 
@@ -168,12 +254,15 @@ Feel free to:
 ## ✅ Checklist Before Submitting PR
 
 - [ ] Code follows style guidelines
-- [ ] Tests pass locally
+- [ ] All new features have corresponding unit tests
+- [ ] All existing tests pass locally (`pytest tests/ -v`)
+- [ ] Test coverage for new code is at least 80%
+- [ ] Tests follow the naming and structure guidelines
 - [ ] No new warnings generated
 - [ ] Documentation updated
 - [ ] Commit messages are clear
 - [ ] No unrelated changes included
-- [ ] PR description is detailed
+- [ ] PR description is detailed and references related issues
 
 ---
 

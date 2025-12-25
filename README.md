@@ -8,13 +8,25 @@ FastAPI service that provides Hindi Text-to-Speech and simple voice cloning. CPU
 audio-tts-project/
 ├─ app/
 │  ├─ main.py                 # FastAPI app factory and CPU safety for torch
-│  ├─ api/routes.py           # HTTP endpoints (/tts, /voice-clone)
-│  ├─ core/config.py          # Paths and simple config
-│  └─ ...
+│  ├─ api/
+│  │  └─ routes.py            # HTTP endpoints (/tts, /voice-clone)
+│  ├─ core/
+│  │  ├─ config.py            # Paths and simple config
+│  │  └─ validators.py        # Input validation
+│  ├─ services/
+│  │  ├─ tts_service.py       # Hindi TTS service
+│  │  └─ voice_clone_service.py # Voice cloning service
+│  └─ utils/
+│     └─ file_utils.py        # File utilities
+├─ tests/
+│  ├─ test_health.py          # Health check tests
+│  ├─ test_tts_api.py         # TTS endpoint tests
+│  └─ test_voice_clone_api.py # Voice clone endpoint tests
 ├─ inputs/                    # Temp storage for uploaded source audio
 ├─ outputs/                   # Generated WAV files
 ├─ requirements.txt           # Python dependencies
 ├─ setup.ps1                  # Windows one-step setup
+├─ pytest.ini                 # Pytest configuration
 └─ README.md
 ```
 
@@ -61,6 +73,16 @@ uvicorn app.main:app --reload
 - ReDoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
 The API object is defined in [app/main.py](app/main.py) and routes are in [app/api/routes.py](app/api/routes.py).
+
+## Testing
+
+Run the test suite with:
+
+```bash
+python -m pytest tests/ -v
+```
+
+This runs all tests in the `tests/` directory with verbose output.
 
 ## API Overview
 
