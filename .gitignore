@@ -83,3 +83,7 @@ data/
 # Gradio
 __pycache__/
 .gradio/
+
+# Code Coverage
+.coverage
+htmlcov/
